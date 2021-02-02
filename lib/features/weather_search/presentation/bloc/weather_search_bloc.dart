@@ -33,6 +33,8 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
         yield WeatherSearchLoadFailure(
             e.response.statusCode, e.response.statusMessage);
       }
+    } else if (event is WeatherSearchReset) {
+      yield WeatherSearchInitial();
     }
   }
 }

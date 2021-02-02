@@ -37,7 +37,11 @@ class WeatherSearchPage extends StatelessWidget {
                           child: Text(
                               '${state.statusCode} error, ${state.message}'),
                         ),
-                        FlatButton(child: Text('An error has occured, reset.')),
+                        FlatButton(
+                            onPressed: () => context
+                                .read<WeatherSearchBloc>()
+                                .add(WeatherSearchReset()),
+                            child: Text('An error has occured, reset.')),
                       ],
                     ),
                   ),

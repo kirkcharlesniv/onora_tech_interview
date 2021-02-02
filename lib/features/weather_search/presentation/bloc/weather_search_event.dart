@@ -8,3 +8,5 @@ class WeatherSearchTriggered extends WeatherSearchEvent {
 
   WeatherSearchTriggered(this.city);
 }
+
+class WeatherSearchReset extends WeatherSearchEvent {}
