@@ -1,0 +1,26 @@
+name: onora_tech_interview
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  built_value:
+  cupertino_icons: ^1.0.0
+  flutter_bloc:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build:
+  build_runner:
+  source_gen:
+  built_value_generator:
+
+flutter:
+  uses-material-design: true
