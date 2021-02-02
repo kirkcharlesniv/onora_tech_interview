@@ -13,6 +13,7 @@ dependencies:
   built_value:
   cupertino_icons: ^1.0.0
   flutter_bloc:
+  dio:
 
 dev_dependencies:
   flutter_test:
