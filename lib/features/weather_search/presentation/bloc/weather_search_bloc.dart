@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:onora_tech_interview/features/weather_search/models/built_values/built_weather_data.dart';
+import '../../models/built_values/built_weather_data.dart';
 
 part 'weather_search_event.dart';
 part 'weather_search_state.dart';
