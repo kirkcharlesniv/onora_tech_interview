@@ -45,9 +45,14 @@ class WeatherSearchPage extends StatelessWidget {
                               '${state.statusCode} error, ${state.message}'),
                         ),
                         FlatButton(
-                            onPressed: () => context
-                                .read<WeatherSearchBloc>()
-                                .add(WeatherSearchReset()),
+                            onPressed: () => {
+                                  context
+                                      .read<WeatherSearchBloc>()
+                                      .add(WeatherSearchReset()),
+                                  context
+                                      .read<CityInputCubit>()
+                                      .cityInputChanged('')
+                                },
                             child: Text('Try Again.')),
                       ],
                     ),
@@ -121,11 +126,12 @@ class WeatherSearchPage extends StatelessWidget {
               ),
             ),
             FlatButton(
-                onPressed:
-                    inputState.status.isInvalid || inputState.status.isPure
-                        ? null
-                        : () => context.read<WeatherSearchBloc>().add(
-                            WeatherSearchTriggered(inputState.cityInput.value)),
+                onPressed: inputState.status.isInvalid ||
+                        inputState.status.isPure ||
+                        inputState.cityInput.value == ''
+                    ? null
+                    : () => context.read<WeatherSearchBloc>().add(
+                        WeatherSearchTriggered(inputState.cityInput.value)),
                 child: Text('Search'))
           ],
         ),
