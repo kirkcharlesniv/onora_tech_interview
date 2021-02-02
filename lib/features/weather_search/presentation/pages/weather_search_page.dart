@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onora_tech_interview/features/weather_search/presentation/bloc/weather_search_bloc.dart';
 import 'package:onora_tech_interview/features/weather_search/presentation/cubit/city_input_cubit.dart';
+import 'package:formz/formz.dart';
 
 class WeatherSearchPage extends StatelessWidget {
   @override
@@ -15,7 +16,10 @@ class WeatherSearchPage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  title: Text('Search Weather'),
+                  title: Text(
+                    'Search Weather',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 body: Center(
                   child: cityInputField(context, inputState),
@@ -26,7 +30,10 @@ class WeatherSearchPage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  title: Text('Error Occured'),
+                  title: Text(
+                    'Error Occured',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 body: Padding(
                   padding: const EdgeInsets.all(32.0),
@@ -52,7 +59,10 @@ class WeatherSearchPage extends StatelessWidget {
                 appBar: AppBar(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
-                  title: Text('See ${state.weatherData.name} Weather'),
+                  title: Text(
+                    'See ${state.weatherData.name} Weather',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
                 body: Center(
                   child: cityInputField(context, inputState),
@@ -71,28 +81,40 @@ class WeatherSearchPage extends StatelessWidget {
     );
   }
 
-  Widget cityInputField(BuildContext context, CityInputState inputState) =>
-      TextField(
-        key: const Key('weatherForm_cityInput_textField'),
-        onChanged: (city) =>
-            context.read<CityInputCubit>().cityInputChanged(city),
-        keyboardType: TextInputType.name,
-        onEditingComplete: () => FocusScope.of(context).nextFocus(),
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              width: 0,
-              style: BorderStyle.none,
+  Column cityInputField(BuildContext context, CityInputState inputState) =>
+      Column(
+        children: [
+          TextField(
+            key: const Key('weatherForm_cityInput_textField'),
+            onChanged: (city) =>
+                context.read<CityInputCubit>().cityInputChanged(city),
+            keyboardType: TextInputType.name,
+            onEditingComplete: () => FocusScope.of(context).nextFocus(),
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(
+                  width: 0,
+                  style: BorderStyle.none,
+                ),
+              ),
+              fillColor: Colors.grey[100],
+              contentPadding: const EdgeInsets.all(18),
+              labelText: 'City',
+              errorText: inputState.cityInput.invalid
+                  ? 'Please enter a city name.'
+                  : null,
             ),
           ),
-          fillColor: Colors.grey[100],
-          contentPadding: const EdgeInsets.all(18),
-          labelText: 'City',
-          errorText:
-              inputState.cityInput.invalid ? 'Please enter a city name.' : null,
-        ),
+          FlatButton(
+              onPressed: inputState.status.isInvalid || inputState.status.isPure
+                  ? null
+                  : () => context
+                      .read<WeatherSearchBloc>()
+                      .add(WeatherSearchTriggered(inputState.cityInput.value)),
+              child: Text('Search'))
+        ],
       );
 }

@@ -32,6 +32,9 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
       } on DioError catch (e) {
         yield WeatherSearchLoadFailure(
             e.response.statusCode, e.response.statusMessage);
+      } catch (e) {
+        yield WeatherSearchLoadFailure(
+            500, 'There was a trouble parsing the data.');
       }
     } else if (event is WeatherSearchReset) {
       yield WeatherSearchInitial();

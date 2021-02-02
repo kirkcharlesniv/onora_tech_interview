@@ -6,8 +6,8 @@ class CityInputState {
   final String message;
 
   CityInputState([
-    this.cityInput,
-    this.status,
+    this.cityInput = const CityInput.pure(),
+    this.status = FormzStatus.pure,
     this.message,
   ]);
 
