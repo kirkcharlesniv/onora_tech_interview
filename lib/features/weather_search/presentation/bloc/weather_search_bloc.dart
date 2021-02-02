@@ -19,11 +19,12 @@ class WeatherSearchBloc extends Bloc<WeatherSearchEvent, WeatherSearchState> {
     if (event is WeatherSearchTriggered) {
       Dio dio = new Dio();
       try {
-        Response response = await dio
-            .get("api.openweathermap.org/data/2.5/weather", queryParameters: {
-          "q": event.city,
-          "appid": "658e174916573a413b2f31b643a7b278"
-        });
+        Response response = await dio.get(
+            "https://api.openweathermap.org/data/2.5/weather",
+            queryParameters: {
+              "q": event.city,
+              "appid": "658e174916573a413b2f31b643a7b278"
+            });
 
         BuiltWeatherData _weatherData =
             BuiltWeatherData.fromJson(json.encode(response.data));
